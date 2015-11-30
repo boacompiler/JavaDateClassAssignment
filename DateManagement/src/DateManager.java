@@ -66,4 +66,10 @@ public class DateManager
 		//TODO finish this
 		return 0;
 	}
+	
+	public String dayName(DateManager date)
+	{
+		//TODO finish this
+		return "";
+	}
 }
