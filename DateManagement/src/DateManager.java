@@ -11,28 +11,35 @@ public class DateManager
 		this.month = month;
 		this.day = day;
 	}
-	//getters and setters
-	public void setYear(int year) {
+
+	// getters and setters
+	public void setYear(int year)
+	{
 		this.year = year;
 	}
 
-    public int getYear() {
-       return year;
-    }
-    
-    public void setMonth(int month) {
+	public int getYear()
+	{
+		return year;
+	}
+
+	public void setMonth(int month)
+	{
 		this.month = month;
 	}
 
-    public int getMonth() {
-       return month;
-    }
-    
-    public void setDay(int day) {
+	public int getMonth()
+	{
+		return month;
+	}
+
+	public void setDay(int day)
+	{
 		this.day = day;
 	}
 
-    public int getDay() {
-       return day;
-    }
+	public int getDay()
+	{
+		return day;
+	}
 }
