@@ -42,4 +42,11 @@ public class DateManager
 	{
 		return day;
 	}
+	
+	public boolean validDate(int year, int month, int day)
+	{
+		//TODO finish this
+		return true;
+	}
+	
 }
