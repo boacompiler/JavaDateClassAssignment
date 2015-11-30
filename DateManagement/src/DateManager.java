@@ -9,9 +9,9 @@ public class DateManager
 		January,February,March,April,May,June,July,August,September,October,November,December
 	}
 	
-	int year;
-	int month;
-	int day;
+	private int year;
+	private int month;
+	private int day;
 
 	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
