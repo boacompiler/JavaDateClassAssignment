@@ -1,14 +1,5 @@
 public class DateManager
 {
-	public enum Day
-	{
-		Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
-	}
-	public enum Month
-	{
-		January,February,March,April,May,June,July,August,September,October,November,December
-	}
-	
 	private int year;
 	private int month;
 	private int day;
@@ -60,7 +51,19 @@ public class DateManager
 	
 	public String toString()
 	{
-		return day + " " + month + " "+ year;
+		//TODO more formats
+		return day + "/" + month + "/"+ year;
 	}
 	
+	public boolean leapYear()
+	{
+		//TODO finish this
+		return true;
+	}
+	
+	public int daysDifferent(DateManager initialDate,DateManager finalDate)
+	{
+		//TODO finish this
+		return 0;
+	}
 }
