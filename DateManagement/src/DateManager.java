@@ -1,5 +1,14 @@
 public class DateManager
 {
+	public enum Day
+	{
+		Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
+	}
+	public enum Month
+	{
+		January,February,March,April,May,June,July,August,September,October,November,December
+	}
+	
 	int year;
 	int month;
 	int day;
@@ -47,6 +56,11 @@ public class DateManager
 	{
 		//TODO finish this
 		return true;
+	}
+	
+	public String toString()
+	{
+		return day + " " + month + " "+ year;
 	}
 	
 }
