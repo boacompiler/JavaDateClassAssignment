@@ -1,14 +1,13 @@
+import java.awt.*;
+import javax.swing.*;
 
-public class Main
+
+public class Main extends JApplet // errors for some silly eclipse reason
 {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		// TODO Auto-generated method stub
-		System.out.println("hello world");
-	}
+	public void paint (Graphics g)
+    {
+        super.paint(g);
+        g.drawString("wow this worked", 25, 25);
+    }
 
 }
