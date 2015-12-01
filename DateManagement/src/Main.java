@@ -10,7 +10,7 @@ public class Main
 	{
 		// TODO Auto-generated method stub
 		dm = new DateManager(1994,Month.November.getValue(),12);
-		System.out.println(dm.toString());
+		System.out.println(dm.daysDifferent(new DateManager(1994,11,4), new DateManager(2015,12,1)));
 	}
 
 }
