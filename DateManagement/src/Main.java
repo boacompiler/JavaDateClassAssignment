@@ -1,3 +1,4 @@
+import java.time.DayOfWeek;
 import java.time.Month;
 
 public class Main
@@ -12,7 +13,8 @@ public class Main
 	{
 		// TODO Auto-generated method stub
 		dm = new DateManager(1994,Month.JANUARY.getValue(),12);
-		System.out.println(dm.daysDifferent(new DateManager(1994,11,4), new DateManager(2015,12,2)));
+		System.out.println(dm.dayName(new DateManager(2005,3,5)));//2005,3,5 returns -1
+		//System.out.println(dm.daysDifferent(new DateManager(1994,11,4), new DateManager(2015,12,2)));
 	}
 
 }

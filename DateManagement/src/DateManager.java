@@ -1,3 +1,5 @@
+import java.time.DayOfWeek;
+
 public class DateManager
 {
 	private int year;
@@ -87,17 +89,18 @@ public class DateManager
 		return Math.abs(daysFormulae(initialDate) - daysFormulae(finalDate));
 	}
 	
-	private double daysFormulae(DateManager myDate)
+	private double daysFormulae(DateManager date)
 	{
-		System.out.println("" + myDate.month);
-		if(myDate.month <= 2)
+		//TODO clean
+		//System.out.println("" + date.month);
+		if(date.month <= 2)
 		{
-			myDate.setMonth(myDate.month + 12);
-			myDate.setYear(myDate.year - 1);
+			date.setMonth(date.month + 12);
+			date.setYear(date.year - 1);
 		}
-		System.out.println("" + myDate.month);
+		//System.out.println("" + date.month);
 		
-		return 365*myDate.year + Math.floor(myDate.year/4) - Math.floor(myDate.year/100) + Math.floor(myDate.year/400) + myDate.day + Math.floor((153*myDate.month+8)/5); 
+		return 365*date.year + Math.floor(date.year/4) - Math.floor(date.year/100) + Math.floor(date.year/400) + date.day + Math.floor((153*date.month+8)/5); 
 		//365*year + year/4 - year/100 + year/400 + date + (153*month+8)/5
 		
 		
@@ -106,6 +109,25 @@ public class DateManager
 	public String dayName(DateManager date)
 	{
 		//TODO finish this
-		return "";
+		//d= ([2.6*M -0.2] + D + Y + [Y/4] + [C/4] -2*C) modulo 7
+		int d = date.day;
+		int m = 0;
+		int c = Integer.parseInt(String.valueOf(date.year).substring(0, 2));//2 most significant digits of year
+		int y = Integer.parseInt(String.valueOf(date.year).substring(2, 4));//2 least significant digits of year
+		
+		if(date.month <= 2)
+		{
+			m = date.month + 10; // TODO +1 error gaahahaha
+			date.setYear(date.year - 1);
+		}
+		else
+		{
+			m = date.month - 2;//TODO march = 1
+		}
+		
+		double day = Math.round(((2.6*m-0.2)+d+y+(y/4)+(c/4)-2*c)%7);
+		
+		//return DayOfWeek.values()[(int)day-1].name(); // TODO existing libraries ok?
+		return day + "";
 	}
 }
