@@ -84,20 +84,20 @@ public class DateManager
 		//TODO finish this
 		//http://mathforum.org/library/drmath/view/66857.html
 		
-		return Math.abs(daysFormulae(initialDate) - daysFormulae(finalDate));
+		return daysFormulae(initialDate) - daysFormulae(finalDate);
 	}
 	
 	private double daysFormulae(DateManager myDate)
 	{
 		System.out.println("" + myDate.month);
-		if(myDate.month <= 2)
+		if(myDate.month == 1 || myDate.month == 2)
 		{
 			myDate.setMonth(myDate.month + 12);
 			myDate.setYear(myDate.year - 1);
 		}
 		System.out.println("" + myDate.month);
 		
-		return 365*myDate.year + Math.floor(myDate.year/4) - Math.floor(myDate.year/100) + Math.floor(myDate.year/400) + myDate.day + Math.floor((153*myDate.month+8)/5); 
+		return 365*myDate.month + Math.floor(myDate.year/4) - Math.floor(myDate.year/100) + Math.floor(myDate.year/400) + myDate.day + Math.floor((153*myDate.month+8)/5); 
 		//365*year + year/4 - year/100 + year/400 + date + (153*month+8)/5
 		
 		

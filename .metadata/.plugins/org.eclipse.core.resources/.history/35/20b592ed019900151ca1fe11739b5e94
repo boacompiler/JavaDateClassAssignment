@@ -84,7 +84,7 @@ public class DateManager
 		//TODO finish this
 		//http://mathforum.org/library/drmath/view/66857.html
 		
-		return Math.abs(daysFormulae(initialDate) - daysFormulae(finalDate));
+		return daysFormulae(initialDate) - daysFormulae(finalDate);
 	}
 	
 	private double daysFormulae(DateManager myDate)

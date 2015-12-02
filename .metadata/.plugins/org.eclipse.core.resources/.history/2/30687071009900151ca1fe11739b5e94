@@ -20,7 +20,7 @@ public class Main extends JApplet // errors for some silly eclipse reason
 	public void paint (Graphics g)
     {
         super.paint(g);
-        g.drawString(sum + " poop", 25, 25);
+        g.drawString(sum + "", 25, 25);
     }
 
 }
