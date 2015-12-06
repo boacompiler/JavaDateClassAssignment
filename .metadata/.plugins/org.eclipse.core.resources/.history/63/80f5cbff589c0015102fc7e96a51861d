@@ -8,7 +8,7 @@ public class DateManager
 
 	public DateManager()
 	{
-		//Empty constructor for when you don't want a date
+		
 	}
 	
 	// constructor taking parameters in osi date standard order
@@ -133,6 +133,6 @@ public class DateManager
 		double day = Math.round(((2.6*m-0.2)+d+y+(y/4)+(c/4)-2*c)%7);
 		
 		//return DayOfWeek.values()[(int)day-1].name(); // TODO existing libraries ok?
-		return day + "";//0 = sunday
+		return day + "";
 	}
 }

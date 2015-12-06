@@ -6,11 +6,6 @@ public class DateManager
 	private int month;
 	private int day;
 
-	public DateManager()
-	{
-		//Empty constructor for when you don't want a date
-	}
-	
 	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
 	{
@@ -82,8 +77,8 @@ public class DateManager
 	
 	public boolean leapYear(int year)
 	{
-		//TODO Test this
-		return  (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
+		//TODO finish this
+		return true;
 	}
 	//todo put this back to int
 	public double daysDifferent(DateManager initialDate,DateManager finalDate)
@@ -133,6 +128,6 @@ public class DateManager
 		double day = Math.round(((2.6*m-0.2)+d+y+(y/4)+(c/4)-2*c)%7);
 		
 		//return DayOfWeek.values()[(int)day-1].name(); // TODO existing libraries ok?
-		return day + "";//0 = sunday
+		return day + "";
 	}
 }
