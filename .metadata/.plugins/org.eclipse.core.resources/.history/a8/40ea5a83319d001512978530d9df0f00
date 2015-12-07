@@ -111,25 +111,17 @@ public class DateManager
 	{
 		return day + "/" + month + "/"+ year;
 	}
-	public String europeanString(char separator) //overload allows for a default parameter to be used or a custom separator
+	public String europeanString(char a)
 	{
-		return day + "" + separator + month + "" + separator + year;
+		return day + "/" + month + "/"+ year;
 	}
 	public String americanString()
 	{
 		return month + "/" + day + "/"+ year;
 	}
-	public String americanString(char separator)
-	{
-		return month + "" + separator + day + "" + separator + year;
-	}
 	public String internationalString()
 	{
 		return year + "/" + month + "/"+ day;
-	}
-	public String internationalString(char separator)
-	{
-		return year + "" + separator + month + "" + separator + day;
 	}
 	
 	public boolean leapYear(int year)

@@ -16,7 +16,7 @@ public class Main
 		//System.out.println(dm.daysDifferent(new DateManager(1994,11,4), new DateManager(1994,11,1)));
 		System.out.println(dm.europeanString('-'));
 		System.out.println(dm.internationalString('-'));
-		System.out.println(dm.americanString('-'));
+		System.out.println(dm.americanString(' '));
 	}
 
 }
