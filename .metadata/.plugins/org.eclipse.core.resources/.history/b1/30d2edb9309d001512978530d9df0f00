@@ -166,7 +166,7 @@ public class DateManager
 			k = j -= 1;
 		}
 		
-		k %= 100;//Modulus of 100 gives us the first 2 significant digits
+		k %= 100;//Mod 100 gives us the first 2 significant digits
 		j /= 100;//integer division of 100 gives us the last 2 significant digits
 		
 		//TODO remove testing stuff

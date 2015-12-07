@@ -11,7 +11,7 @@ public class Main
 	{
 		// TODO Auto-generated method stub
 		dm = new DateManager(2008,2,29);//Month.January is an existing month class
-		System.out.println(dm.dayName(new DateManager(1994,11,4)));//Saturday = 0
+		System.out.println(dm.dayName(new DateManager(2005,3,5)));//2005,3,5 returns -1 Sunday = 0
 		//System.out.println(dm.validDate(2007, 2, 29));
 		//System.out.println(dm.daysDifferent(new DateManager(1994,11,4), new DateManager(1994,11,1)));
 	}
