@@ -35,7 +35,7 @@ public class Main extends JApplet implements ActionListener // errors for some s
 	
 	public void actionPerformed(ActionEvent e) 
 	{
-		String n1 = JOptionPane.showInputDialog("button worked");
+		//String n1 = JOptionPane.showInputDialog("button worked");
 	}
 
 

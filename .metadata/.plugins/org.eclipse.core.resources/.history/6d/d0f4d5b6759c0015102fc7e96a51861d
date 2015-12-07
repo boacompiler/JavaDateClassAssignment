@@ -17,7 +17,6 @@ public class Main extends JApplet implements ActionListener // errors for some s
 		
 		button1 = new Button("Button 1");
 		button1.setSize(100, 25);
-		button1.setLabel("this is a button");
 		add(button1);
 		button1.addActionListener(this);
 		

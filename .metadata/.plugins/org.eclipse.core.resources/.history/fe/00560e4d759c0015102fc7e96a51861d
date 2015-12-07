@@ -16,8 +16,7 @@ public class Main extends JApplet implements ActionListener // errors for some s
 		String n2 = JOptionPane.showInputDialog("Enter second number: ");
 		
 		button1 = new Button("Button 1");
-		button1.setSize(100, 25);
-		button1.setLabel("this is a button");
+		button1.WIDTH = 10;
 		add(button1);
 		button1.addActionListener(this);
 		
