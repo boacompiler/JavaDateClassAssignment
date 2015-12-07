@@ -1,22 +1,27 @@
+import javax.xml.namespace.QName;
+
 public class DateManager
 {
 	private int year;
 	private int month;
 	private int day;
 
-	private int[] daysInMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+	private static int[] daysInMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
 	
 	public DateManager()
 	{
 		//Empty constructor for when you don't want a date
+		//TODO is this overiding? mention it. also mention, calling the class within itself
 	}
 	
 	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
 	{
 		this.setYear(year);
-		this.setMonth(month);
-		this.setDay(day);
+		//TODO this.setMonth(month);
+		this.month = month;
+		//this.setDay(day);
+		this.day = day;
 	}
 
 	// getters and setters
@@ -71,20 +76,20 @@ public class DateManager
 	{
 		return day;
 	}
-	
+	//Returns true or false
+	//requires int parameters instead of a datemanager class because the date manager class constructor will throw an error at any incorrect date trying to be passed
 	public boolean validDate(int year, int month, int day)
 	{
-		//TODO finish this
 		boolean valid = true;
 		if(year < 1)
 		{
 			valid = false;
 		}
-		if(month > 12 || month < 1)
+		else if(month > 12 || month < 1)
 		{
 			valid = false;
 		}
-		if(month == 2 && ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))))
+		else if(month == 2 && ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))))
 		{
 			if(day > 29)
 			{
@@ -147,26 +152,41 @@ public class DateManager
 	
 	public String dayName(DateManager date)
 	{
-		//TODO finish this
-		//d= ([2.6*M -0.2] + D + Y + [Y/4] + [C/4] -2*C) modulo 7
-		int d = date.day;
-		int m = 0;
-		int c = Integer.parseInt(String.valueOf(date.year).substring(0, 2));//2 most significant digits of year
-		int y = Integer.parseInt(String.valueOf(date.year).substring(2, 4));//2 least significant digits of year
+//		//TODO finish this
+//		//d= ([2.6*M -0.2] + D + Y + [Y/4] + [C/4] -2*C) modulo 7
+//		int d = date.day;
+//		int m = 0;
+//		
+//		if(date.month <= 2)
+//		{
+//			m = date.month + 10; // TODO +1 error gaahahaha
+//			date.setYear(date.year - 1);
+//		}
+//		else
+//		{
+//			m = date.month - 2;//TODO march = 1
+//		}
+//		
+//		int c = Integer.parseInt(String.valueOf(date.year).substring(0, 2));//2 most significant digits of year
+//		int y = Integer.parseInt(String.valueOf(date.year).substring(2, 4));//2 least significant digits of year
+//		
+//		System.out.println("d: "+d+", m: "+m+", c: "+c+", y: "+y+"");
+//		double day = Math.round(((2.6*m-0.2)+d+y+(y/4)+(c/4)-2*c)%7);
+//		
+//		//return DayOfWeek.values()[(int)day-1].name(); // TODO existing libraries ok?
+//		return day + "";//0 = Sunday
 		
-		if(date.month <= 2)
-		{
-			m = date.month + 10; // TODO +1 error gaahahaha
-			date.setYear(date.year - 1);
-		}
-		else
-		{
-			m = date.month - 2;//TODO march = 1
-		}
+		//Restarting with a basic implementation of Zeller's congruence with software as described on this page https://en.wikipedia.org/wiki/Zeller's_congruence
+		int h;
+		int q = date.day; 
+		int m = date.month; // march = 3
+		int k = date.year % 100;
+		int j = date.year / 100;
+		//TODO remove testing stuff
+		h = (q+((13*(m+1))/5)+k+(k/4)+(j/4)+5*j)%7;
 		
-		double day = Math.round(((2.6*m-0.2)+d+y+(y/4)+(c/4)-2*c)%7);
-		
-		//return DayOfWeek.values()[(int)day-1].name(); // TODO existing libraries ok?
-		return day + "";//0 = sunday
+		System.out.println("h: "+h+", q: "+q+", m: "+m+", k: "+k+", j: "+j);
+		System.out.println(date.year);
+		return ""+h;
 	}
 }
