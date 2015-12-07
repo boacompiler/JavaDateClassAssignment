@@ -5,11 +5,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-public class Main extends JApplet //implements ActionListener // errors for some silly eclipse reason
+public class Main extends JApplet implements ActionListener // errors for some silly eclipse reason
 {
 	private double sum;
 	Button button1;
-	Button button2;
 	Frame mainFrame;
 	Panel controlPanel;
 	
@@ -34,27 +33,9 @@ public class Main extends JApplet //implements ActionListener // errors for some
 		button1.setSize(100, 25);
 		button1.setLabel("this is a button");
 		
-		button1.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent e) {
-	        	 String n1 = JOptionPane.showInputDialog("button worked");
-	          }
-	       });
-		
-		button2 = new Button("Button 1");
-		button2.setSize(100, 25);
-		button2.setLabel("this is a button");
-		
-		button2.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent e) {
-	        	 String n1 = JOptionPane.showInputDialog("button worked");
-	          }
-	       });
+		button1.addActionListener(this);
 		
 		controlPanel.add(button1);
-		controlPanel.add(button2);
-		add(controlPanel);
-		//mainFrame.add(controlPanel);
-		//mainFrame.setVisible(true); 
 		//sum = Double.parseDouble(n1) + Double.parseDouble(n2);
 		
 		//String a = JOptionPane.showMessageDialog(sum + " a", sum + " b");
@@ -67,10 +48,10 @@ public class Main extends JApplet //implements ActionListener // errors for some
         g.drawString(sum + " poop", 25, 25);
     }
 	
-//	public void actionPerformed(ActionEvent e) 
-//	{
-//		String n1 = JOptionPane.showInputDialog("button worked");
-//	}
+	public void actionPerformed(ActionEvent e) 
+	{
+		String n1 = JOptionPane.showInputDialog("button worked");
+	}
 
 
 }

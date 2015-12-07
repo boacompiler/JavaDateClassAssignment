@@ -9,7 +9,6 @@ public class Main extends JApplet //implements ActionListener // errors for some
 {
 	private double sum;
 	Button button1;
-	Button button2;
 	Frame mainFrame;
 	Panel controlPanel;
 	
