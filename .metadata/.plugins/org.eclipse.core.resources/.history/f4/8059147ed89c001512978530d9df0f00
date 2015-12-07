@@ -1,0 +1,15 @@
+
+public enum DaysInMonth
+{
+	January(31),February(28),March(31),April(30),May(31);
+	
+	private int days;
+
+    private DaysInMonth(int a) {
+      this.days = a;
+    }
+
+    public long getAnimal() {
+      return days;
+    }
+}

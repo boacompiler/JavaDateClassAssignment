@@ -1,11 +1,11 @@
-import java.time.DayOfWeek;
-
 public class DateManager
 {
 	private int year;
 	private int month;
 	private int day;
 
+	private int[] daysInMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+	
 	public DateManager()
 	{
 		//Empty constructor for when you don't want a date
@@ -14,10 +14,33 @@ public class DateManager
 	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
 	{
+		//daysInMonth = new int[12];
+		
+		if(year < 1)
+		{
+			throw new IllegalArgumentException("Year must be above 0");
+		}
+		
 		if(month > 12 || month < 1)
 		{
 			throw new IllegalArgumentException("Month must be between 1 and 12");
 		}
+		
+		if(month == 2 && ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))))
+		{
+			if(day > 29)
+			{
+				throw new IllegalArgumentException("Too many days in the month");
+			}
+		}
+		else
+		{
+			if(day > daysInMonth[month - 1])
+			{
+				throw new IllegalArgumentException("Too many days in the month");
+			}
+		}
+		
 		//TODO add day validation per month or use valid date, but this returns a bool so we cannot return a specialised error message
 		this.year = year;
 		this.month = month;
