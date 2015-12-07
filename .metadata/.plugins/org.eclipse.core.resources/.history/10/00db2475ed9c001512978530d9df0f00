@@ -14,6 +14,7 @@ public class DateManager
 	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
 	{
+		//daysInMonth = new int[12];
 		this.setYear(year);
 		this.setMonth(month);
 		this.setDay(day);

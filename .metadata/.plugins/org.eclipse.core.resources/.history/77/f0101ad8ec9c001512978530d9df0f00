@@ -14,42 +14,18 @@ public class DateManager
 	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
 	{
-		this.setYear(year);
-		this.setMonth(month);
-		this.setDay(day);
-	}
-
-	// getters and setters
-	public void setYear(int year)
-	{
+		//daysInMonth = new int[12];
+		
 		if(year < 1)
 		{
 			throw new IllegalArgumentException("Year must be above 0");
 		}
-		this.year = year;
-	}
-
-	public int getYear()
-	{
-		return year;
-	}
-
-	public void setMonth(int month)
-	{
+		
 		if(month > 12 || month < 1)
 		{
 			throw new IllegalArgumentException("Month must be between 1 and 12");
 		}
-		this.month = month;
-	}
-
-	public int getMonth()
-	{
-		return month;
-	}
-
-	public void setDay(int day)
-	{
+		
 		if(month == 2 && ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))))
 		{
 			if(day > 29)
@@ -64,6 +40,36 @@ public class DateManager
 				throw new IllegalArgumentException("Too many days in the month");
 			}
 		}
+		
+		//TODO add day validation per month or use valid date, but this returns a bool so we cannot return a specialised error message
+		this.year = year;
+		this.month = month;
+		this.day = day;
+	}
+
+	// getters and setters
+	public void setYear(int year)
+	{
+		this.year = year;
+	}
+
+	public int getYear()
+	{
+		return year;
+	}
+
+	public void setMonth(int month)
+	{
+		this.month = month;
+	}
+
+	public int getMonth()
+	{
+		return month;
+	}
+
+	public void setDay(int day)
+	{
 		this.day = day;
 	}
 
@@ -76,28 +82,11 @@ public class DateManager
 	{
 		//TODO finish this
 		boolean valid = true;
-		if(year < 1)
-		{
-			valid = false;
-		}
 		if(month > 12 || month < 1)
 		{
 			valid = false;
 		}
-		if(month == 2 && ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))))
-		{
-			if(day > 29)
-			{
-				valid = false;
-			}
-		}
-		else
-		{
-			if(day > daysInMonth[month - 1])
-			{
-				valid = false;
-			}
-		}
+		
 		return valid;
 	}
 	
