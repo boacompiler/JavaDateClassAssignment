@@ -6,27 +6,26 @@ public class DateManager
 	private int month;
 	private int day;
 
-	//we could import standard java classes to return the names of weekdays and months, but using private arrays allows our class to stand alone
-	//this also allows for the weekdays to be presented compliant with Zeller's congruence
 	private static int[] daysInMonth = {31,28,31,30,31,30,31,31,30,31,30,31};// 0 = January
 	private static String[] weekDayName = {"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"};
 	
 	public DateManager()
 	{
 		//Empty constructor for when you don't want a date
-		//TODO is this overriding? mention it. also mention, calling the class within itself
+		//TODO is this overiding? mention it. also mention, calling the class within itself
 	}
 	
-	// constructor taking parameters in ISO date standard order
+	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
 	{
 		this.setYear(year);
 		this.setMonth(month);
+		//TODO remove this.month = month;
 		this.setDay(day);
+		//this.day = day;
 	}
 
 	// getters and setters
-	//validation is handled in the setters
 	public void setYear(int year)
 	{
 		if(year < 1)
@@ -138,7 +137,7 @@ public class DateManager
 		//TODO Test this
 		return  (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
 	}
-	//TODO put this back to int
+	//todo put this back to int
 	public double daysDifferent(DateManager initialDate,DateManager finalDate)
 	{
 		//TODO clean this

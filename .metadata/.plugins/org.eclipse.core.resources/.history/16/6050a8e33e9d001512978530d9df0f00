@@ -138,7 +138,7 @@ public class DateManager
 		//TODO Test this
 		return  (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
 	}
-	//TODO put this back to int
+	//todo put this back to int
 	public double daysDifferent(DateManager initialDate,DateManager finalDate)
 	{
 		//TODO clean this

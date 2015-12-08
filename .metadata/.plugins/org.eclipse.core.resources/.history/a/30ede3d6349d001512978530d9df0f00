@@ -14,15 +14,17 @@ public class DateManager
 	public DateManager()
 	{
 		//Empty constructor for when you don't want a date
-		//TODO is this overriding? mention it. also mention, calling the class within itself
+		//TODO is this overiding? mention it. also mention, calling the class within itself
 	}
 	
-	// constructor taking parameters in ISO date standard order
+	// constructor taking parameters in osi date standard order
 	public DateManager(int year, int month, int day)
 	{
 		this.setYear(year);
 		this.setMonth(month);
+		//TODO remove this.month = month;
 		this.setDay(day);
+		//this.day = day;
 	}
 
 	// getters and setters
@@ -138,7 +140,7 @@ public class DateManager
 		//TODO Test this
 		return  (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
 	}
-	//TODO put this back to int
+	//todo put this back to int
 	public double daysDifferent(DateManager initialDate,DateManager finalDate)
 	{
 		//TODO clean this
