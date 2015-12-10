@@ -143,10 +143,10 @@ public class DateManager
 	{
 		//TODO clean this
 		//http://mathforum.org/library/drmath/view/66857.html
-		
+		//Math.abs provides an absolute value, insuring you will never get a negative number of days
 		return Math.abs(daysFormulae(initialDate) - daysFormulae(finalDate));
 	}
-	
+	//This function is private because it is only used internally during the calculation of daysDifferent
 	private double daysFormulae(DateManager date)
 	{
 		//TODO clean
