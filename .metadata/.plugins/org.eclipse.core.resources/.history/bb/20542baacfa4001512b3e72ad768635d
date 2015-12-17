@@ -1,0 +1,75 @@
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Main extends JApplet
+{
+
+	DateManager myDateManager;
+	
+	Panel controlPanel;
+	Label labelDescriptor;
+	
+	Button buttonValidate;
+	Button buttonSetDate;
+	
+	JTextField textBoxNewYear;
+	JTextField textBox2;
+	JTextField textBox3;
+	
+	public void init()
+	{
+		myDateManager = new DateManager();
+		controlPanel = new Panel();
+		controlPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		labelDescriptor = new Label("Year");
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 0;
+		c.gridy = 0;
+		controlPanel.add(labelDescriptor, c);
+		labelDescriptor = new Label("Month");
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 1;
+		c.gridy = 0;
+		controlPanel.add(labelDescriptor, c);
+		labelDescriptor = new Label("Day");
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 2;
+		c.gridy = 0;
+		controlPanel.add(labelDescriptor, c);
+		textBoxNewYear = new JTextField(4);
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 0;
+		c.gridy = 1;
+		controlPanel.add(textBoxNewYear, c);
+		textBox2 = new JTextField(2);
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 1;
+		c.gridy = 1;
+		controlPanel.add(textBox2, c);
+		textBox3 = new JTextField(2);
+		c.fill = GridBagConstraints.WEST;
+		c.gridx = 2;
+		c.gridy = 1;
+		controlPanel.add(textBox3, c);
+		
+		buttonValidate = new Button("Check Valid");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 1;
+		controlPanel.add(buttonValidate, c);
+		
+		buttonSetDate = new Button("Set Date");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 4;
+		c.gridy = 1;
+		controlPanel.add(buttonSetDate, c);
+		//TODO JOptionPane.showMessageDialog(null, "Init complete");
+		
+		add(controlPanel);
+	}
+	
+}

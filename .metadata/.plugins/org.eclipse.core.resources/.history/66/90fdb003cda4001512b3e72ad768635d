@@ -1,0 +1,42 @@
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Main extends JApplet
+{
+
+	DateManager myDateManager;
+	
+	Panel controlPanel;
+	Button button1;
+	Button button2;
+	
+	JTextField textBox1;
+	JTextField textBox2;
+	JTextField textBox3;
+	
+	public void init()
+	{
+		myDateManager = new DateManager();
+		controlPanel = new Panel();
+		controlPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		//TODO if shouldfill
+		button1 = new Button("TEST");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 1;
+		controlPanel.add(button1, c);
+		
+		button2 = new Button("TEST2");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 10;
+		c.gridy = 10;
+		controlPanel.add(button2, c);
+		
+		
+		add(controlPanel);
+	}
+	
+}

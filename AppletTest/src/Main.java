@@ -14,6 +14,8 @@ public class Main extends JApplet //implements ActionListener // errors for some
 	Frame mainFrame;
 	Panel controlPanel;
 	
+	JTextField txtbx;
+	
 	public void init()
 	{
 		mainFrame = new Frame("Java AWT Examples");
@@ -47,15 +49,18 @@ public class Main extends JApplet //implements ActionListener // errors for some
 		
 		button2.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	        	 label1.setText("button 2 pressed");
+	        	 label1.setText(txtbx.getText());
 	          }
 	       });
 		
 		label1 = new Label("this is a label");
 		
-		controlPanel.add(button1);
+		txtbx = new JTextField(20);
+		
+		controlPanel.add(button1,"Center");
 		controlPanel.add(label1);
-		controlPanel.add(button2);
+		controlPanel.add(button2,"South");
+		controlPanel.add(txtbx);
 		add(controlPanel);
 		//mainFrame.add(controlPanel);
 		//mainFrame.setVisible(true); 
