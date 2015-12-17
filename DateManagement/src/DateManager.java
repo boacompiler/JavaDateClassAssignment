@@ -108,7 +108,7 @@ public class DateManager
 	
 	public String europeanString()
 	{
-		return day + "/" + month + "/"+ year;
+		return europeanString('/');
 	}
 	public String europeanString(char separator) //overload allows for a default parameter to be used or a custom separator
 	{
@@ -116,7 +116,7 @@ public class DateManager
 	}
 	public String americanString()
 	{
-		return month + "/" + day + "/"+ year;
+		return americanString('/');
 	}
 	public String americanString(char separator)
 	{
@@ -124,7 +124,7 @@ public class DateManager
 	}
 	public String internationalString()
 	{
-		return year + "/" + month + "/"+ day;
+		return internationalString('/');
 	}
 	public String internationalString(char separator)
 	{
@@ -148,14 +148,18 @@ public class DateManager
 	{
 		//TODO clean
 		//System.out.println("" + date.month);
-		if(date.month <= 2)
-		{
-			date.setMonth(date.month + 12);
-			date.setYear(date.year - 1);
-		}
-		//System.out.println("" + date.month);
+		int year = date.getYear();
+		int month = date.getMonth();
+		int day = date.getDay();
 		
-		return 365*date.year + Math.floor(date.year/4) - Math.floor(date.year/100) + Math.floor(date.year/400) + date.day + Math.floor((153*date.month+8)/5); 
+		if(month <= 2)
+		{
+			month += 12;
+			year -= 1;
+		}
+		System.out.println("" + day);
+		
+		return 365*year + Math.floor(year/4) - Math.floor(year/100) + Math.floor(year/400) + day + Math.floor((153*month+8)/5); 
 		//365*year + year/4 - year/100 + year/400 + date + (153*month+8)/5
 		
 		
