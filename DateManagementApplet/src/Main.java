@@ -357,7 +357,7 @@ public class Main extends JApplet
 	    	        			 finalDate = new DateManager(Integer.valueOf(textBoxFinalYear.getText()), Integer.valueOf(textBoxFinalMonth.getText()), Integer.valueOf(textBoxFinalDay.getText()));
 	    	        			 try
 								 {
-	    	        				 JOptionPane.showMessageDialog(null, myDateManager.daysDifferent(initialDate, finalDate));
+	    	        				 JOptionPane.showMessageDialog(null, myDateManager.daysDifferent(initialDate, finalDate)+" days");
 								 } catch (Exception e2)
 								 {
 									 JOptionPane.showMessageDialog(null,"Zellers Congruence Cannot handle these dates");
