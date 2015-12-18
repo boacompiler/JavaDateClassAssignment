@@ -1,0 +1,31 @@
+$(document).ready(function(){ 
+	$('img').hide();
+    $('#help').hide();
+    $("#buttonHelp").click(function(){
+		$("#help").slideToggle();
+	});
+	$("#buttonConfigure").click(function(){
+		$("#imgConfigure").slideToggle();
+	});
+	$("#buttonSecurity").click(function(){
+		$("#imgSecurity").slideToggle();
+	});
+	$("#buttonEnable").click(function(){
+		$("#imgEnable").slideToggle();
+	});
+	$("#buttonEdit").click(function(){
+		$("#imgEdit").slideToggle();
+	});
+	$("#buttonAdd").click(function(){
+		$("#imgAdd").slideToggle();
+	});
+	$("#buttonUrl").click(function(){
+		$("#imgUrl").slideToggle();
+	});
+	$("#buttonActivate").click(function(){
+		$("#imgActivate").slideToggle();
+	});
+	$("#buttonCloseAll").click(function(){
+		$("img").slideUp();
+	});
+});

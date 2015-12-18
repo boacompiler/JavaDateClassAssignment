@@ -1,14 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.time.LocalDateTime;;
+
+import java.util.Calendar;// this is only used to get todays date, this is not needed for the use of DateManager
 
 public class Main extends JApplet
 {
 
 	DateManager myDateManager;
-	
-	LocalDateTime myDate; // this is only used to get todays date, this is not needed for the use of DateManager
 	
 	JPanel controlPanel;
 	JPanel controlPanelDateEntry;
@@ -42,7 +41,7 @@ public class Main extends JApplet
 	                  
 	public void init()
 	{
-		myDateManager = new DateManager();
+		myDateManager = new DateManager(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH) + 1,Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 		controlPanel = new JPanel();
 		controlPanel.setLayout(new GridBagLayout());
 		controlPanelDateEntry = new JPanel();
@@ -94,14 +93,41 @@ public class Main extends JApplet
 		c.gridy = 1;
 		controlPanelDateEntry.add(textBoxNewDay, c);
 		
-		buttonValidate = new Button("Check Valid");
+		buttonValidate = new Button("Check TextBox date Valid");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 1;
 		buttonValidate.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	        	 //TODO input validation
-	        	 JOptionPane.showMessageDialog(null, myDateManager.validDate(Integer.valueOf(textBoxNewYear.getText()), Integer.valueOf(textBoxNewMonth.getText()), Integer.valueOf(textBoxNewDay.getText())));
+	        	 boolean valid = false;
+	        	 
+	        	 try
+				 {
+	        		 if (textBoxNewYear.getText().isEmpty() || textBoxNewMonth.getText().isEmpty() || textBoxNewDay.getText().isEmpty())
+					 {
+						valid = false;
+					 }
+		        	 else 
+		        	 {
+		        		valid = myDateManager.validDate(Integer.valueOf(textBoxNewYear.getText()), Integer.valueOf(textBoxNewMonth.getText()), Integer.valueOf(textBoxNewDay.getText()));
+					 }
+				 } catch (Exception e2)
+				 {
+					valid = false;
+				 }
+	        	 
+	        	 String validMessage = "Error";
+	        	 
+	        	 if (valid)
+				 {
+					validMessage = "The textbox contains a valid date";
+				 }
+	        	 else
+	        	 {
+	        		 validMessage = "The textbox contains an invalid date. You cannot set this as a date";
+	        	 }
+	        	 
+	        	 JOptionPane.showMessageDialog(null, validMessage);
 	          }
 	       });
 		controlPanelDateEntry.add(buttonValidate, c);
@@ -112,13 +138,27 @@ public class Main extends JApplet
 		c.gridy = 1;
 		buttonSetDate.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	        	//TODO try/catch
-	        	 myDateManager.setYear(Integer.valueOf(textBoxNewYear.getText()));
-	        	 myDateManager.setMonth(Integer.valueOf(textBoxNewMonth.getText()));
-	        	 myDateManager.setDay(Integer.valueOf(textBoxNewDay.getText()));
+	        	try
+				{
+	        		
+	        		if (textBoxNewYear.getText().isEmpty() || textBoxNewMonth.getText().isEmpty() || textBoxNewDay.getText().isEmpty())
+					{
+	        			JOptionPane.showMessageDialog(null,"The textbox is empty");
+					}
+	        		else
+					{
+		        		myDateManager.setYear(Integer.valueOf(textBoxNewYear.getText()));
+			        	myDateManager.setMonth(Integer.valueOf(textBoxNewMonth.getText()));
+			        	myDateManager.setDay(Integer.valueOf(textBoxNewDay.getText()));
+			        	 
+			        	labelCurrentDate.setText("Currently set date: "+myDateManager.internationalString());
+			        	labelCurrentDate.setSize(new Dimension(1000000, labelCurrentDate.getHeight())); //label size must be refreshed otherwise the new text may be cut off
+	         		}
+				} catch (Exception e2)
+				{
+					JOptionPane.showMessageDialog(null, e2.getMessage());//using getMessage allows us to display the errors thrown by the datemanager setters, giving the user more specific feedback 
+				}
 	        	 
-	        	 labelCurrentDate.setText("Currently set date: "+myDateManager.internationalString());
-	        	 labelCurrentDate.setSize(new Dimension(50, labelCurrentDate.getHeight()));
 	          }
 	       });
 		controlPanelDateEntry.add(buttonSetDate, c);
@@ -202,7 +242,17 @@ public class Main extends JApplet
 		c.gridy = 0;
 		buttonLeapYear.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	        	 JOptionPane.showMessageDialog(null, myDateManager.leapYear(myDateManager.getYear()));
+	        	 String message = "ERROR";
+	        	 if (myDateManager.leapYear(myDateManager.getYear()))
+				 {
+					 message = " is a leap year";
+				 }
+	        	 else
+	        	 {
+	        		 message = " is not a leap year";
+	        	 }
+	        	 
+	        	 JOptionPane.showMessageDialog(null, "The year "+ myDateManager.getYear() + message);
 	          }
 	       });
 		controlPanelMisc.add(buttonLeapYear, c);
@@ -213,7 +263,7 @@ public class Main extends JApplet
 		c.gridy = 0;
 		buttonDayName.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	        	 JOptionPane.showMessageDialog(null, myDateManager.dayName(myDateManager));
+	        	 JOptionPane.showMessageDialog(null, "The date " + myDateManager.internationalString() + " is a " + myDateManager.dayName(myDateManager));
 	          }
 	       });
 		controlPanelMisc.add(buttonDayName, c);
@@ -305,7 +355,14 @@ public class Main extends JApplet
 	    	        		 else
 	    	        		 {
 	    	        			 finalDate = new DateManager(Integer.valueOf(textBoxFinalYear.getText()), Integer.valueOf(textBoxFinalMonth.getText()), Integer.valueOf(textBoxFinalDay.getText()));
-	    	        			 JOptionPane.showMessageDialog(null, myDateManager.daysDifferent(initialDate, finalDate));
+	    	        			 try
+								 {
+	    	        				 JOptionPane.showMessageDialog(null, myDateManager.daysDifferent(initialDate, finalDate));
+								 } catch (Exception e2)
+								 {
+									 JOptionPane.showMessageDialog(null,"Zellers Congruence Cannot handle these dates");
+								 }
+	    	        			 
 	    	        		 }
 	    				 } catch (Exception e2)
 	    				 {
@@ -316,9 +373,6 @@ public class Main extends JApplet
 				 {
 					 JOptionPane.showMessageDialog(null,"Invalid initial date characters");
 				 }
-	        	 
-	        	 
-	        	 
 	        	 
 	          }
 	       });

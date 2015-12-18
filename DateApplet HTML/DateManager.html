@@ -1,0 +1,65 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=Cp1252"/>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="Scripts/DateManager.js"></script>
+        <script src="Scripts/JQuery.js"></script>
+    </head>
+	<body style="background-color: #eeeeee; font-family: Arial, Helvetica, sans-serif;">
+        <h1>Date Management</h1>
+        <br>
+		<applet code=Main.class width="400" height="400" >
+            <h2>If you can see this text, Java is not configured correctly in this browser</h2>            
+		</applet>
+		<p>
+			If This applet is not running, follow these steps<button id="buttonHelp">Show Help</button>
+			<ul id = "help">
+				<li>Allow Java to run in your browser</li>
+				<li>Add this applet to the exception site list</li>
+				<ol type="I">
+					<li><button id="buttonConfigure">Image</button>Open "Configure Java" </li><img id="imgConfigure" src="Images/configureJava.PNG" alt="Start menu location" style="">
+					<li><button id="buttonSecurity">Image</button>Open the "Security" tab</li><img id="imgSecurity" src="Images/Security.PNG" alt="Java configure menu" style="">
+					<li><button id="buttonEnable">Image</button>Make sure "Enable Java content in the browser" is checked</li><img id="imgEnable" src="Images/enable.PNG" alt="Java configure menu" style="">
+					<li><button id="buttonEdit">Image</button>Click "Edit Site List..."</li><img id="imgEdit" src="Images/edit.PNG" alt="Java configure menu" style="">
+					<li><button id="buttonAdd">Image</button>Click "Add"</li><img id="imgAdd" src="Images/Add.PNG" alt="Java exception list" style="">
+					<li><button id="buttonUrl">Image</button>Add the url of the local file to the list (copy the url of this page from your browser's address bar)</li><img id="imgUrl" src="Images/url.PNG" alt="Java exception list" style="">
+					<li>Click OK/Apply on all pages</li>
+					<li>Restart Browser</li>
+					<li><button id="buttonActivate">Image</button>Allow Java to run in your browser</li><img id="imgActivate" src="Images/Activate.PNG" alt="Firefox activate plugin" style="">
+					<li>Click Run on Any Java prompts</li>
+                    <button id="buttonCloseAll">Close All Images</button>
+				</ol>
+				<Li>Confirm you have the latest Java</Li>
+                <li>Try another browser</li>
+			</ul> 
+			Java's portability as a user interface is extremely hampered by the number of steps required by a user to run an application in 2015.
+        <br>The user would have a much better experience if this application was handled using Javascript, however Javascript does not have as much access to the users computer as Java.
+        <br>This Improves Javascripts security but decreases its usefulness in applications that require access to printers or other peripherals.
+        <br>DateManagement does not need these permissions so could be accomplished entirely using Javascript.
+        <br>Here is an example:
+		</p>
+        <fieldset style="min-width: 100px; display: inline-block;">
+            <legend>Date Manager</legend>
+            <p id="dateDisplay">Currently set date:</p>
+            <table style="width:250; font-size:10">
+              <tr>
+                <td>Year</td>
+                <td>Month</td>		
+                <td>Day</td>
+              </tr>
+              <tr>
+                <td><input type="number" min="1" max="9999" id="Year" style="width: 50;"></td>
+                <td><input type="number" min="1" max="12" id="Month" style="width: 35;"></td>		
+                <td><input type="number" min="1" max="31" id="Day" style="width: 35;"></td>
+                <td><button onclick="setDate()">Set Date</button></td>
+              </tr>
+            </table>
+            <button onclick="leapYear()">Check Leap Year</button>
+            <br><button onclick="validDate()">Check valid</button>
+        </fieldset>
+        <p>*This was very quickly created as a proof of concept
+            <br>as such it is not as polished as the applet, contains less methods, and has very little validation
+            <br>however it does not need any external plugins to run, providing a preferable alternative to Java
+        </p>
+	</body>
+</html>
