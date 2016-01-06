@@ -1,3 +1,5 @@
+//DateManager class handles dates and associated methods
+//The dates handled are in the common era and use the Gregorian calendar
 public class DateManager
 {
 	private int year;
@@ -11,23 +13,24 @@ public class DateManager
 	
 	public DateManager()
 	{
-		//Empty constructor for when you don't want a date
-		//TODO is this overriding? mention it. also mention, calling the class within itself
+		//Empty constructor for when you don't want an initial date
 	}
 	
-	// constructor taking parameters in ISO date standard order
+	//overloaded constructor taking parameters in ISO date standard order
 	public DateManager(int year, int month, int day)
 	{
+		//uses setters with included validation to reduce amount of code
 		this.setYear(year);
 		this.setMonth(month);
 		this.setDay(day);
 	}
 
-	// getters and setters
+	//getters and setters
+	//these are the public methods for accessing the classes variables
 	//validation is handled in the setters
 	public void setYear(int year)
 	{
-		if(year < 1)
+		if(year < 1)//year cannot be 0 in the Gregorian calendar
 		{
 			throw new IllegalArgumentException("Year must be above 0");
 		}
@@ -55,16 +58,16 @@ public class DateManager
 
 	public void setDay(int day)
 	{
-		if(month == 2 && ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))))
+		if(month == 2 && leapYear(year)) //we validate February on its own if the year is a leap year, we use the existing leapYear function
 		{
-			if(day > 29)
+			if(day > 29) //in a leap year, February has 29 days instead of 28
 			{
 				throw new IllegalArgumentException("Too many days in the month");
 			}
 		}
 		else
 		{
-			if(day > daysInMonth[month - 1])
+			if(day > daysInMonth[month - 1])//our private array stores January in index 0, so the months are -1 the input
 			{
 				throw new IllegalArgumentException("Too many days in the month");
 			}
@@ -76,8 +79,8 @@ public class DateManager
 	{
 		return day;
 	}
-	//Returns true or false
-	//requires int parameters instead of a datemanager class because the date manager class constructor will throw an error at any incorrect date trying to be passed
+	//Will return true if valid, false if invalid
+	//requires int parameters instead of a DateManager class because the date manager class constructor will throw an error at any incorrect date trying to be passed
 	public boolean validDate(int year, int month, int day)
 	{
 		boolean valid = true;
@@ -89,26 +92,28 @@ public class DateManager
 		{
 			valid = false;
 		}
-		else if(month == 2 && ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))))
+		else if(month == 2 && leapYear(year)) //we validate February on its own if the year is a leap year, we use the existing leapYear function
 		{
-			if(day > 29)
+			if(day > 29)//in a leap year, February has 29 days instead of 28
 			{
 				valid = false;
 			}
 		}
 		else
 		{
-			if(day > daysInMonth[month - 1])
+			if(day > daysInMonth[month - 1])//our private array stores January in index 0, so the months are -1 the input
 			{
 				valid = false;
 			}
 		}
 		return valid;
 	}
-	
+	//These methods will return a string of the full date in either european, american or international format
+	//each method has an overload that allows a custom separator to be entered
+	//for example Germany uses the european format date, but uses '.' for separation 
 	public String europeanString()
 	{
-		return europeanString('/');
+		return europeanString('/'); //we use the standard method, passed a default parameter to reduce amount of code
 	}
 	public String europeanString(char separator) //overload allows for a default parameter to be used or a custom separator
 	{
@@ -130,49 +135,47 @@ public class DateManager
 	{
 		return year + "" + separator + month + "" + separator + day;
 	}
-	
+	//this will return true if the year entered is a leap year
 	public boolean leapYear(int year)
 	{
-		//TODO Test this
 		return  (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
 	}
+	//this will return a positive int of the number of days between 2 dates
+	//parameters are DateManager classes, this will insure the passed dates are valid, and reduces the amount of parameters needed
+	//while the parameters are named initialDate and finalDate, the dates can be entered in an arbitrary order and still produce the same answer
 	public int daysDifferent(DateManager initialDate,DateManager finalDate)
 	{
-		//TODO clean this
-		//http://mathforum.org/library/drmath/view/66857.html
 		//Math.abs provides an absolute value, insuring you will never get a negative number of days
+		//this formula requires an algorithm to be run on both dates and the results to be subtracted
+		//the algorithm is implemented once in the method daysFormula, the returning values are then subtracted
+		//The result of this is then returned as the days between the 2 dates
 		return (int)Math.round(Math.abs(daysFormulae(initialDate) - daysFormulae(finalDate)));
 	}
 	//This function is private because it is only used internally during the calculation of daysDifferent
 	private double daysFormulae(DateManager date)
 	{
-		//TODO clean
-		//System.out.println("" + date.month);
 		int year = date.getYear();
 		int month = date.getMonth();
 		int day = date.getDay();
 		
 		if(month <= 2)
 		{
-			month += 12;
+			month += 12; //January and February are treated as months 13 and 14 of the previous year
 			year -= 1;
 		}
-		System.out.println("" + day);
 		
 		return 365*year + Math.floor(year/4) - Math.floor(year/100) + Math.floor(year/400) + day + Math.floor((153*month+8)/5); 
-		//365*year + year/4 - year/100 + year/400 + date + (153*month+8)/5
-		
-		
 	}
-	
+	//An algorithm based on Zeller's congruence
+	//this will return the day of the week that a given date is
+	//the internal variable names are deliberately short, they are the same names used in zeller's congruence
 	public String dayName(DateManager date)
 	{
-		//Restarting with a basic implementation of Zeller's congruence with software as described on this page https://en.wikipedia.org/wiki/Zeller's_congruence
 		int h;
 		int q = date.day; 
 		int m = date.month; // march = 3
-		int k = date.year;// % 100;
-		int j = date.year;// / 100;
+		int k = date.year;
+		int j = date.year;
 		
 		if( m <= 2)
 		{
@@ -183,11 +186,8 @@ public class DateManager
 		k %= 100;//Modulus of 100 gives us the first 2 significant digits
 		j /= 100;//integer division of 100 gives us the last 2 significant digits
 		
-		//TODO remove testing stuff
-		h = (q+((13*(m+1))/5)+k+(k/4)+(j/4)+5*j)%7;
+		h = (q+((13*(m+1))/5)+k+(k/4)+(j/4)+5*j)%7;//Zeller's congruence
 		
-		//System.out.println("h: "+h+", q: "+q+", m: "+m+", k: "+k+", j: "+j);
-		//System.out.println(date.year);
 		return weekDayName[h];
 	}
 }

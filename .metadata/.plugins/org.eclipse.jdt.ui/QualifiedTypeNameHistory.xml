@@ -30,4 +30,9 @@
 <fullyQualifiedTypeName name="DateManager"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.lang.Appendable"/>
+<fullyQualifiedTypeName name="javax.naming.spi.DirStateFactory.Result"/>
+<fullyQualifiedTypeName name="javax.swing.plaf.basic.BasicTreeUI.TreeHomeAction"/>
+<fullyQualifiedTypeName name="java.security.Policy.Parameters"/>
+<fullyQualifiedTypeName name="java.util.WeakHashMap"/>
 </qualifiedTypeNameHistroy>

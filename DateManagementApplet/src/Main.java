@@ -3,20 +3,25 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import java.util.Calendar;// this is only used to get todays date, this is not needed for the use of DateManager
+import java.util.WeakHashMap;
+
+//this is an applet that implements DateManager
+//some input validation is handled in the applet, but the majority of validation is handled by DateManager
 
 public class Main extends JApplet
 {
 
 	DateManager myDateManager;
-	
+	//Panels
 	JPanel controlPanel;
 	JPanel controlPanelDateEntry;
 	JPanel controlPanelReturn;
 	JPanel controlPanelMisc;
 	JPanel controlPanelDifference;
+	//Labels
 	Label labelDescriptor; //We use one label for most of our descriptions because they will never change at runtime
 	Label labelCurrentDate;
-	
+	//Buttons
 	Button buttonValidate;
 	Button buttonSetDate;
 	Button buttonGetEuropean;
@@ -25,13 +30,12 @@ public class Main extends JApplet
 	Button buttonLeapYear;
 	Button buttonDayName;
 	Button buttonCompare;
-	
+	//Text boxes
 	JTextField textBoxNewYear;
 	JTextField textBoxNewMonth;
-	JTextField textBoxNewDay;
-	
+	JTextField textBoxNewDay;	
 	JTextField textBoxSeparator; 
-	
+	//Text boxes for days comparison
 	JTextField textBoxInitialYear;
 	JTextField textBoxInitialMonth;
 	JTextField textBoxInitialDay;
@@ -41,6 +45,7 @@ public class Main extends JApplet
 	                  
 	public void init()
 	{
+		//we initialise DateManager with the current date retrieved from the users clock
 		myDateManager = new DateManager(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH) + 1,Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 		controlPanel = new JPanel();
 		controlPanel.setLayout(new GridBagLayout());
@@ -52,51 +57,51 @@ public class Main extends JApplet
 		controlPanelMisc.setLayout(new GridBagLayout());
 		controlPanelDifference = new JPanel();
 		controlPanelDifference.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		GridBagConstraints constraints = new GridBagConstraints();
 		
 		labelCurrentDate = new Label("Currently set date: "+myDateManager.internationalString());
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
-		c.gridy = 0;
-		controlPanel.add(labelCurrentDate, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		controlPanel.add(labelCurrentDate, constraints);
 		
 		//Date group
 		labelDescriptor = new Label("Year");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
-		c.gridy = 0;
-		controlPanelDateEntry.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		controlPanelDateEntry.add(labelDescriptor, constraints);
 		labelDescriptor = new Label("Month");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 1;
-		c.gridy = 0;
-		controlPanelDateEntry.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		controlPanelDateEntry.add(labelDescriptor, constraints);
 		labelDescriptor = new Label("Day");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 2;
-		c.gridy = 0;
-		controlPanelDateEntry.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		controlPanelDateEntry.add(labelDescriptor, constraints);
 		
 		textBoxNewYear = new JTextField(4);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
-		c.gridy = 1;
-		controlPanelDateEntry.add(textBoxNewYear, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		controlPanelDateEntry.add(textBoxNewYear, constraints);
 		textBoxNewMonth = new JTextField(2);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 1;
-		c.gridy = 1;
-		controlPanelDateEntry.add(textBoxNewMonth, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		controlPanelDateEntry.add(textBoxNewMonth, constraints);
 		textBoxNewDay = new JTextField(2);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 2;
-		c.gridy = 1;
-		controlPanelDateEntry.add(textBoxNewDay, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		controlPanelDateEntry.add(textBoxNewDay, constraints);
 		
 		buttonValidate = new Button("Check TextBox date Valid");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
-		c.gridy = 1;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 3;
+		constraints.gridy = 1;
 		buttonValidate.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	 boolean valid = false;
@@ -130,12 +135,12 @@ public class Main extends JApplet
 	        	 JOptionPane.showMessageDialog(null, validMessage);
 	          }
 	       });
-		controlPanelDateEntry.add(buttonValidate, c);
+		controlPanelDateEntry.add(buttonValidate, constraints);
 		
 		buttonSetDate = new Button("Set Date");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 4;
-		c.gridy = 1;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 4;
+		constraints.gridy = 1;
 		buttonSetDate.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	try
@@ -161,13 +166,13 @@ public class Main extends JApplet
 	        	 
 	          }
 	       });
-		controlPanelDateEntry.add(buttonSetDate, c);
+		controlPanelDateEntry.add(buttonSetDate, constraints);
 		
 		//Return Date Group
 		buttonGetEuropean = new Button("European");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
 		buttonGetEuropean.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	 if (!textBoxSeparator.getText().isEmpty())
@@ -181,12 +186,12 @@ public class Main extends JApplet
 	        	 
 	          }
 	       });
-		controlPanelReturn.add(buttonGetEuropean, c);
+		controlPanelReturn.add(buttonGetEuropean, constraints);
 		
 		buttonGetAmerican = new Button("American");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
 		buttonGetAmerican.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	 if (!textBoxSeparator.getText().isEmpty())
@@ -199,12 +204,12 @@ public class Main extends JApplet
 	        	 }
 	          }
 	       });
-		controlPanelReturn.add(buttonGetAmerican, c);
+		controlPanelReturn.add(buttonGetAmerican, constraints);
 		
 		buttonGetInternational = new Button("International");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 2;
-		c.gridy = 0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
 		buttonGetInternational.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	 if (!textBoxSeparator.getText().isEmpty())
@@ -217,29 +222,29 @@ public class Main extends JApplet
 	        	 }
 	          }
 	       });
-		controlPanelReturn.add(buttonGetInternational, c);
+		controlPanelReturn.add(buttonGetInternational, constraints);
 		
 		labelDescriptor = new Label("Optional Separating Char:");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 2;
-		controlPanelReturn.add(labelDescriptor, c);
-		c.gridwidth = 1; //return column span to 1, so we don't mess up other controls arrangement
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 2;
+		controlPanelReturn.add(labelDescriptor, constraints);
+		constraints.gridwidth = 1; //return column span to 1, so we don't mess up other controls arrangement
 		
 		textBoxSeparator = new JTextField(1);
-		c.fill = GridBagConstraints.WEST;	
-		c.gridx = 2;
-		c.gridy = 1;
-		c.anchor = GridBagConstraints.WEST;
-		controlPanelReturn.add(textBoxSeparator, c);
-		c.anchor = GridBagConstraints.CENTER;
+		constraints.fill = GridBagConstraints.WEST;	
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		constraints.anchor = GridBagConstraints.WEST;
+		controlPanelReturn.add(textBoxSeparator, constraints);
+		constraints.anchor = GridBagConstraints.CENTER;
 		
 		//Misc Group
 		buttonLeapYear = new Button("Check Leap Year");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
 		buttonLeapYear.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	 String message = "ERROR";
@@ -255,82 +260,82 @@ public class Main extends JApplet
 	        	 JOptionPane.showMessageDialog(null, "The year "+ myDateManager.getYear() + message);
 	          }
 	       });
-		controlPanelMisc.add(buttonLeapYear, c);
+		controlPanelMisc.add(buttonLeapYear, constraints);
 		
 		buttonDayName = new Button("Check Week Day");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
 		buttonDayName.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	 JOptionPane.showMessageDialog(null, "The date " + myDateManager.internationalString() + " is a " + myDateManager.dayName(myDateManager));
 	          }
 	       });
-		controlPanelMisc.add(buttonDayName, c);
+		controlPanelMisc.add(buttonDayName, constraints);
 		
 		//Compare Group
 		labelDescriptor = new Label("Year");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 1;
-		c.gridy = 0;
-		controlPanelDifference.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		controlPanelDifference.add(labelDescriptor, constraints);
 		labelDescriptor = new Label("Month");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 2;
-		c.gridy = 0;
-		controlPanelDifference.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		controlPanelDifference.add(labelDescriptor, constraints);
 		labelDescriptor = new Label("Day");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 3;
-		c.gridy = 0;
-		controlPanelDifference.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 3;
+		constraints.gridy = 0;
+		controlPanelDifference.add(labelDescriptor, constraints);
 		labelDescriptor = new Label("Initial Date");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
-		c.gridy = 1;
-		controlPanelDifference.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		controlPanelDifference.add(labelDescriptor, constraints);
 		labelDescriptor = new Label("Final Date");
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 0;
-		c.gridy = 2;
-		controlPanelDifference.add(labelDescriptor, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+		controlPanelDifference.add(labelDescriptor, constraints);
 		
 		textBoxInitialYear = new JTextField(4);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 1;
-		c.gridy = 1;
-		controlPanelDifference.add(textBoxInitialYear, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		controlPanelDifference.add(textBoxInitialYear, constraints);
 		textBoxInitialMonth = new JTextField(2);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 2;
-		c.gridy = 1;
-		controlPanelDifference.add(textBoxInitialMonth, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		controlPanelDifference.add(textBoxInitialMonth, constraints);
 		textBoxInitialDay = new JTextField(2);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 3;
-		c.gridy = 1;
-		controlPanelDifference.add(textBoxInitialDay, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 3;
+		constraints.gridy = 1;
+		controlPanelDifference.add(textBoxInitialDay, constraints);
 		
 		textBoxFinalYear = new JTextField(4);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 1;
-		c.gridy = 2;
-		controlPanelDifference.add(textBoxFinalYear, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 2;
+		controlPanelDifference.add(textBoxFinalYear, constraints);
 		textBoxFinalMonth = new JTextField(2);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 2;
-		c.gridy = 2;
-		controlPanelDifference.add(textBoxFinalMonth, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 2;
+		controlPanelDifference.add(textBoxFinalMonth, constraints);
 		textBoxFinalDay = new JTextField(2);
-		c.fill = GridBagConstraints.WEST;
-		c.gridx = 3;
-		c.gridy = 2;
-		controlPanelDifference.add(textBoxFinalDay, c);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 3;
+		constraints.gridy = 2;
+		controlPanelDifference.add(textBoxFinalDay, constraints);
 		
 		buttonCompare = new Button("Compare");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 4;
-		c.gridy = 2;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 4;
+		constraints.gridy = 2;
 		buttonCompare.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
 	        	 
@@ -376,29 +381,29 @@ public class Main extends JApplet
 	        	 
 	          }
 	       });
-		controlPanelDifference.add(buttonCompare, c);
+		controlPanelDifference.add(buttonCompare, constraints);
 		
 		//Adding panels to main panel
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 1;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
 		controlPanelDateEntry.setBorder(BorderFactory.createTitledBorder("Date"));
-		controlPanel.add(controlPanelDateEntry, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 2;
+		controlPanel.add(controlPanelDateEntry, constraints);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 2;
 		controlPanelReturn.setBorder(BorderFactory.createTitledBorder("Return Date As"));	
-		controlPanel.add(controlPanelReturn, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 3;
+		controlPanel.add(controlPanelReturn, constraints);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 3;
 		controlPanelMisc.setBorder(BorderFactory.createTitledBorder("Miscellaneous"));	
-		controlPanel.add(controlPanelMisc, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 4;
+		controlPanel.add(controlPanelMisc, constraints);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 4;
 		controlPanelDifference.setBorder(BorderFactory.createTitledBorder("Compare Difference"));	
-		controlPanel.add(controlPanelDifference, c);
+		controlPanel.add(controlPanelDifference, constraints);
 		controlPanel.setBorder(BorderFactory.createTitledBorder("Date Manager"));
 		add(controlPanel);
 	}

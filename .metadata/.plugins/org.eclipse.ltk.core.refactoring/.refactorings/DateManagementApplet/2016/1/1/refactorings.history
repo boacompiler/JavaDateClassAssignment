@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;c&apos; in &apos;Main.init()&apos; to &apos;constraints&apos;&#x0D;&#x0A;- Original project: &apos;DateManagementApplet&apos;&#x0D;&#x0A;- Original element: &apos;Main.init().c&apos;&#x0D;&#x0A;- Renamed element: &apos;c&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;c&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{Main.java[Main~init@c!1946!1993!1965!1965!QGridBagConstraints;!0!false" name="constraints" references="true" stamp="1452072301345" version="1.0"/>
+</session>
