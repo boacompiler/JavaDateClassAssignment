@@ -1,0 +1,411 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+import java.util.Calendar;// this is only used to get todays date, this is not needed for the use of DateManager
+import java.util.WeakHashMap;
+
+//this is an applet that implements DateManager
+//some input validation is handled in the applet, but the majority of validation is handled by DateManager
+
+public class Main extends JApplet
+{
+
+	DateManager myDateManager;
+	//Panels
+	JPanel controlPanel;
+	JPanel controlPanelDateEntry;
+	JPanel controlPanelReturn;
+	JPanel controlPanelMisc;
+	JPanel controlPanelDifference;
+	//Labels
+	Label labelDescriptor; //We use one label for most of our descriptions because they will never change at runtime
+	Label labelCurrentDate;
+	//Buttons
+	Button buttonValidate;
+	Button buttonSetDate;
+	Button buttonGetEuropean;
+	Button buttonGetAmerican;
+	Button buttonGetInternational;
+	Button buttonLeapYear;
+	Button buttonDayName;
+	Button buttonCompare;
+	//Text boxes
+	JTextField textBoxNewYear;
+	JTextField textBoxNewMonth;
+	JTextField textBoxNewDay;	
+	JTextField textBoxSeparator; 
+	//Text boxes for days comparison
+	JTextField textBoxInitialYear;
+	JTextField textBoxInitialMonth;
+	JTextField textBoxInitialDay;
+	JTextField textBoxFinalYear;
+	JTextField textBoxFinalMonth;
+	JTextField textBoxFinalDay; 
+	                  
+	public void init()
+	{
+		//we initialise DateManager with the current date retrieved from the users clock
+		myDateManager = new DateManager(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH) + 1,Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+		controlPanel = new JPanel();
+		controlPanel.setLayout(new GridBagLayout());
+		controlPanelDateEntry = new JPanel();
+		controlPanelDateEntry.setLayout(new GridBagLayout());
+		controlPanelReturn = new JPanel();
+		controlPanelReturn.setLayout(new GridBagLayout());
+		controlPanelMisc = new JPanel();
+		controlPanelMisc.setLayout(new GridBagLayout());
+		controlPanelDifference = new JPanel();
+		controlPanelDifference.setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		labelCurrentDate = new Label("Currently set date: "+myDateManager.internationalString());
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		controlPanel.add(labelCurrentDate, constraints);
+		
+		//Date group
+		labelDescriptor = new Label("Year");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		controlPanelDateEntry.add(labelDescriptor, constraints);
+		labelDescriptor = new Label("Month");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		controlPanelDateEntry.add(labelDescriptor, constraints);
+		labelDescriptor = new Label("Day");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		controlPanelDateEntry.add(labelDescriptor, constraints);
+		
+		textBoxNewYear = new JTextField(4);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		controlPanelDateEntry.add(textBoxNewYear, constraints);
+		textBoxNewMonth = new JTextField(2);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		controlPanelDateEntry.add(textBoxNewMonth, constraints);
+		textBoxNewDay = new JTextField(2);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		controlPanelDateEntry.add(textBoxNewDay, constraints);
+		
+		buttonValidate = new Button("Check TextBox date Valid");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 3;
+		constraints.gridy = 1;
+		buttonValidate.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 boolean valid = false;
+	        	 
+	        	 try
+				 {
+	        		 if (textBoxNewYear.getText().isEmpty() || textBoxNewMonth.getText().isEmpty() || textBoxNewDay.getText().isEmpty())
+					 {
+						valid = false;
+					 }
+		        	 else 
+		        	 {
+		        		valid = myDateManager.validDate(Integer.valueOf(textBoxNewYear.getText()), Integer.valueOf(textBoxNewMonth.getText()), Integer.valueOf(textBoxNewDay.getText()));
+					 }
+				 } catch (Exception e2)
+				 {
+					valid = false;
+				 }
+	        	 myDateManager.
+	        	 String validMessage = "Error";
+	        	 
+	        	 if (valid)
+				 {
+					validMessage = "The textbox contains a valid date";
+				 }
+	        	 else
+	        	 {
+	        		 validMessage = "The textbox contains an invalid date. You cannot set this as a date";
+	        	 }
+	        	 
+	        	 JOptionPane.showMessageDialog(null, validMessage);
+	          }
+	       });
+		controlPanelDateEntry.add(buttonValidate, constraints);
+		
+		buttonSetDate = new Button("Set Date");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 4;
+		constraints.gridy = 1;
+		buttonSetDate.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	try
+				{
+	        		
+	        		if (textBoxNewYear.getText().isEmpty() || textBoxNewMonth.getText().isEmpty() || textBoxNewDay.getText().isEmpty())
+					{
+	        			JOptionPane.showMessageDialog(null,"The textbox is empty");
+					}
+	        		else
+					{
+		        		myDateManager.setYear(Integer.valueOf(textBoxNewYear.getText()));
+			        	myDateManager.setMonth(Integer.valueOf(textBoxNewMonth.getText()));
+			        	myDateManager.setDay(Integer.valueOf(textBoxNewDay.getText()));
+			        	 
+			        	labelCurrentDate.setText("Currently set date: "+myDateManager.internationalString());
+			        	labelCurrentDate.setSize(new Dimension(1000000, labelCurrentDate.getHeight())); //label size must be refreshed otherwise the new text may be cut off
+	         		}
+				} catch (Exception e2)
+				{
+					JOptionPane.showMessageDialog(null, e2.getMessage());//using getMessage allows us to display the errors thrown by the datemanager setters, giving the user more specific feedback 
+				}
+	        	 
+	          }
+	       });
+		controlPanelDateEntry.add(buttonSetDate, constraints);
+		
+		//Return Date Group
+		buttonGetEuropean = new Button("European");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		buttonGetEuropean.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 if (!textBoxSeparator.getText().isEmpty())
+				 {
+	        		 JOptionPane.showMessageDialog(null, myDateManager.europeanString(textBoxSeparator.getText().charAt(0)));
+				 }
+	        	 else
+	        	 {
+	        		 JOptionPane.showMessageDialog(null, myDateManager.europeanString());
+	        	 }
+	        	 
+	          }
+	       });
+		controlPanelReturn.add(buttonGetEuropean, constraints);
+		
+		buttonGetAmerican = new Button("American");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		buttonGetAmerican.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 if (!textBoxSeparator.getText().isEmpty())
+				 {
+	        		 JOptionPane.showMessageDialog(null, myDateManager.americanString(textBoxSeparator.getText().charAt(0)));
+				 }
+	        	 else
+	        	 {
+	        		 JOptionPane.showMessageDialog(null, myDateManager.americanString());
+	        	 }
+	          }
+	       });
+		controlPanelReturn.add(buttonGetAmerican, constraints);
+		
+		buttonGetInternational = new Button("International");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		buttonGetInternational.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 if (!textBoxSeparator.getText().isEmpty())
+				 {
+	        		 JOptionPane.showMessageDialog(null, myDateManager.internationalString(textBoxSeparator.getText().charAt(0)));
+				 }
+	        	 else
+	        	 {
+	        		 JOptionPane.showMessageDialog(null, myDateManager.internationalString());
+	        	 }
+	          }
+	       });
+		controlPanelReturn.add(buttonGetInternational, constraints);
+		
+		labelDescriptor = new Label("Optional Separating Char:");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 2;
+		controlPanelReturn.add(labelDescriptor, constraints);
+		constraints.gridwidth = 1; //return column span to 1, so we don't mess up other controls arrangement
+		
+		textBoxSeparator = new JTextField(1);
+		constraints.fill = GridBagConstraints.WEST;	
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		constraints.anchor = GridBagConstraints.WEST;
+		controlPanelReturn.add(textBoxSeparator, constraints);
+		constraints.anchor = GridBagConstraints.CENTER;
+		
+		//Misc Group
+		buttonLeapYear = new Button("Check Leap Year");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		buttonLeapYear.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 String message = "ERROR";
+	        	 if (myDateManager.leapYear(myDateManager.getYear()))
+				 {
+					 message = " is a leap year";
+				 }
+	        	 else
+	        	 {
+	        		 message = " is not a leap year";
+	        	 }
+	        	 
+	        	 JOptionPane.showMessageDialog(null, "The year "+ myDateManager.getYear() + message);
+	          }
+	       });
+		controlPanelMisc.add(buttonLeapYear, constraints);
+		
+		buttonDayName = new Button("Check Week Day");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		buttonDayName.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 JOptionPane.showMessageDialog(null, "The date " + myDateManager.internationalString() + " is a " + myDateManager.dayName(myDateManager));
+	          }
+	       });
+		controlPanelMisc.add(buttonDayName, constraints);
+		
+		//Compare Group
+		labelDescriptor = new Label("Year");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		controlPanelDifference.add(labelDescriptor, constraints);
+		labelDescriptor = new Label("Month");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		controlPanelDifference.add(labelDescriptor, constraints);
+		labelDescriptor = new Label("Day");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 3;
+		constraints.gridy = 0;
+		controlPanelDifference.add(labelDescriptor, constraints);
+		labelDescriptor = new Label("Initial Date");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		controlPanelDifference.add(labelDescriptor, constraints);
+		labelDescriptor = new Label("Final Date");
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+		controlPanelDifference.add(labelDescriptor, constraints);
+		
+		textBoxInitialYear = new JTextField(4);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		controlPanelDifference.add(textBoxInitialYear, constraints);
+		textBoxInitialMonth = new JTextField(2);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		controlPanelDifference.add(textBoxInitialMonth, constraints);
+		textBoxInitialDay = new JTextField(2);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 3;
+		constraints.gridy = 1;
+		controlPanelDifference.add(textBoxInitialDay, constraints);
+		
+		textBoxFinalYear = new JTextField(4);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 1;
+		constraints.gridy = 2;
+		controlPanelDifference.add(textBoxFinalYear, constraints);
+		textBoxFinalMonth = new JTextField(2);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 2;
+		constraints.gridy = 2;
+		controlPanelDifference.add(textBoxFinalMonth, constraints);
+		textBoxFinalDay = new JTextField(2);
+		constraints.fill = GridBagConstraints.WEST;
+		constraints.gridx = 3;
+		constraints.gridy = 2;
+		controlPanelDifference.add(textBoxFinalDay, constraints);
+		
+		buttonCompare = new Button("Compare");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 4;
+		constraints.gridy = 2;
+		buttonCompare.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 
+	        	 DateManager initialDate;
+	        	 DateManager finalDate;
+	        	 //Validation
+	        	 try
+				 {
+	        		 if (!myDateManager.validDate(Integer.valueOf(textBoxInitialYear.getText()), Integer.valueOf(textBoxInitialMonth.getText()), Integer.valueOf(textBoxInitialDay.getText())))
+	 				 {
+	 	        		 JOptionPane.showMessageDialog(null,"Invalid initial date format");
+	 				 }
+	        		 else
+	        		 {
+	        			 initialDate = new DateManager(Integer.valueOf(textBoxInitialYear.getText()), Integer.valueOf(textBoxInitialMonth.getText()), Integer.valueOf(textBoxInitialDay.getText()));
+	        			 try
+	    				 {
+	    	        		 if (!myDateManager.validDate(Integer.valueOf(textBoxFinalYear.getText()), Integer.valueOf(textBoxFinalMonth.getText()), Integer.valueOf(textBoxFinalDay.getText())))
+	    	 				 {
+	    	 	        		 JOptionPane.showMessageDialog(null,"Invalid final date format");
+	    	 				 }
+	    	        		 else
+	    	        		 {
+	    	        			 finalDate = new DateManager(Integer.valueOf(textBoxFinalYear.getText()), Integer.valueOf(textBoxFinalMonth.getText()), Integer.valueOf(textBoxFinalDay.getText()));
+	    	        			 try
+								 {
+	    	        				 JOptionPane.showMessageDialog(null, myDateManager.daysDifferent(initialDate, finalDate)+" days");
+								 } catch (Exception e2)
+								 {
+									 JOptionPane.showMessageDialog(null,"Zellers Congruence Cannot handle these dates");
+								 }
+	    	        			 
+	    	        		 }
+	    				 } catch (Exception e2)
+	    				 {
+	    					 JOptionPane.showMessageDialog(null,"Invalid final date characters");
+	    				 }
+	        		 }
+				 } catch (Exception e2)
+				 {
+					 JOptionPane.showMessageDialog(null,"Invalid initial date characters");
+				 }
+	        	 
+	          }
+	       });
+		controlPanelDifference.add(buttonCompare, constraints);
+		
+		//Adding panels to main panel
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		controlPanelDateEntry.setBorder(BorderFactory.createTitledBorder("Date"));
+		controlPanel.add(controlPanelDateEntry, constraints);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+		controlPanelReturn.setBorder(BorderFactory.createTitledBorder("Return Date As"));	
+		controlPanel.add(controlPanelReturn, constraints);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 3;
+		controlPanelMisc.setBorder(BorderFactory.createTitledBorder("Miscellaneous"));	
+		controlPanel.add(controlPanelMisc, constraints);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 4;
+		controlPanelDifference.setBorder(BorderFactory.createTitledBorder("Compare Difference"));	
+		controlPanel.add(controlPanelDifference, constraints);
+		controlPanel.setBorder(BorderFactory.createTitledBorder("Date Manager"));
+		add(controlPanel);
+	}
+	
+}
