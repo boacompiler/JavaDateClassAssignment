@@ -159,7 +159,7 @@ public class DateManager
 		return americanString('/');
 	}
 	/**this formats the date into american standard
-	 * @param separator custom char to separate date elements
+	 * @param separator
 	 * @return string in american date format
 	 */
 	public String americanString(char separator)
@@ -174,17 +174,17 @@ public class DateManager
 		return internationalString('/');
 	}
 	/**this formats the date into international standard
-	 * @param separator custom char to separate date elements
+	 * @param separator
 	 * @return string in international date format
 	 */
 	public String internationalString(char separator)
 	{
 		return year + "" + separator + month + "" + separator + day;
 	}
-	/**calculates whether a year is a leap year or not
-	 * 
-	 * @param year the year to test
-	 * @return this will return true if the year entered is a leap year, false otherwise
+	//this will return true if the year entered is a leap year
+	/**
+	 * @param year
+	 * @return string in international date format
 	 */
 	public boolean leapYear(int year)
 	{

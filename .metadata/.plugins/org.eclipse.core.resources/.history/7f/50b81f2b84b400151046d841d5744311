@@ -144,47 +144,47 @@ public class DateManager
 		return europeanString('/'); //we use the standard method, passed a default parameter to reduce amount of code
 	}
 	/**this formats the date into european standard
-	 * @param separator custom char to separate date elements
-	 * @return string in european date format
+	 * @param separator
+	 * @return
 	 */
 	public String europeanString(char separator) //overload allows for a default parameter to be used or a custom separator
 	{
 		return day + "" + separator + month + "" + separator + year;
 	}
 	/**this formats the date into american standard
-	 * @return string in american date format
+	 * @return
 	 */
 	public String americanString()
 	{
 		return americanString('/');
 	}
 	/**this formats the date into american standard
-	 * @param separator custom char to separate date elements
-	 * @return string in american date format
+	 * @param separator
+	 * @return
 	 */
 	public String americanString(char separator)
 	{
 		return month + "" + separator + day + "" + separator + year;
 	}
 	/**this formats the date into international standard
-	 * @return string in european date format
+	 * @return
 	 */
 	public String internationalString()
 	{
 		return internationalString('/');
 	}
 	/**this formats the date into international standard
-	 * @param separator custom char to separate date elements
-	 * @return string in international date format
+	 * @param separator
+	 * @return
 	 */
 	public String internationalString(char separator)
 	{
 		return year + "" + separator + month + "" + separator + day;
 	}
-	/**calculates whether a year is a leap year or not
-	 * 
-	 * @param year the year to test
-	 * @return this will return true if the year entered is a leap year, false otherwise
+	//this will return true if the year entered is a leap year
+	/**
+	 * @param year
+	 * @return
 	 */
 	public boolean leapYear(int year)
 	{

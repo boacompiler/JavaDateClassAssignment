@@ -2,8 +2,7 @@
 //The dates handled are in the common era and use the Gregorian calendar
 /**
  * @author Robert Stephens
- * @version 1.0
- * 
+ *
  */
 public class DateManager
 {
@@ -16,23 +15,12 @@ public class DateManager
 	private static int[] daysInMonth = {31,28,31,30,31,30,31,31,30,31,30,31};// 0 = January
 	private static String[] weekDayName = {"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"};
 	
-	/**Warning: Only use this constructor if you will set a date later, or do not require any internal date manipulation
-	 * <p>
-	 * this constructor is for compatibility and sequence issues
-	 * 
-	 */
 	public DateManager()
 	{
 		//Empty constructor for when you don't want an initial date
 	}
 	
 	//overloaded constructor taking parameters in ISO date standard order
-	/**This is the primary constructor to use
-	 * 
-	 * @param year the year of the date
-	 * @param month the month of the date
-	 * @param day the day of the month of the date
-	 */
 	public DateManager(int year, int month, int day)
 	{
 		//uses setters with included validation to reduce amount of code
@@ -95,16 +83,8 @@ public class DateManager
 	{
 		return day;
 	}
-	//
-	/**Tests a date's validity
-	 * <p> 
-	 * requires int parameters instead of a DateManager class because the date manager class constructor will throw an error at any incorrect date trying to be passed
-	 * 
-	 * @param year the year of the date
-	 * @param month the month of the date
-	 * @param day the day of the month of the date
-	 * @return Will return true if valid, false if invalid
-	 */
+	//Will return true if valid, false if invalid
+	//requires int parameters instead of a DateManager class because the date manager class constructor will throw an error at any incorrect date trying to be passed
 	public boolean validDate(int year, int month, int day)
 	{
 		boolean valid = true;
@@ -135,73 +115,38 @@ public class DateManager
 	//These methods will return a string of the full date in either european, american or international format
 	//each method has an overload that allows a custom separator to be entered
 	//for example Germany uses the european format date, but uses '.' for separation 
-	/**this formats the date into european standard
-	 * 
-	 * @return string in european date format
-	 */
 	public String europeanString()
 	{
 		return europeanString('/'); //we use the standard method, passed a default parameter to reduce amount of code
 	}
-	/**this formats the date into european standard
-	 * @param separator custom char to separate date elements
-	 * @return string in european date format
-	 */
 	public String europeanString(char separator) //overload allows for a default parameter to be used or a custom separator
 	{
 		return day + "" + separator + month + "" + separator + year;
 	}
-	/**this formats the date into american standard
-	 * @return string in american date format
-	 */
 	public String americanString()
 	{
 		return americanString('/');
 	}
-	/**this formats the date into american standard
-	 * @param separator custom char to separate date elements
-	 * @return string in american date format
-	 */
 	public String americanString(char separator)
 	{
 		return month + "" + separator + day + "" + separator + year;
 	}
-	/**this formats the date into international standard
-	 * @return string in european date format
-	 */
 	public String internationalString()
 	{
 		return internationalString('/');
 	}
-	/**this formats the date into international standard
-	 * @param separator custom char to separate date elements
-	 * @return string in international date format
-	 */
 	public String internationalString(char separator)
 	{
 		return year + "" + separator + month + "" + separator + day;
 	}
-	/**calculates whether a year is a leap year or not
-	 * 
-	 * @param year the year to test
-	 * @return this will return true if the year entered is a leap year, false otherwise
-	 */
+	//this will return true if the year entered is a leap year
 	public boolean leapYear(int year)
 	{
 		return  (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
 	}
-	
-	
-	/**calculates the number of days between two dates
-	 * <p>
-	 * parameters are DateManager classes, this will insure the passed dates are valid, and reduces the amount of parameters needed
-	 * <p>
-	 * while the parameters are named initialDate and finalDate, the dates can be entered in an arbitrary order and still produce the same answer
-	 * 
-	 * @param initialDate the first date
-	 * @param finalDate the second date
-	 * @return this will return a positive int of the number of days between 2 dates
-	 */
+	//this will return a positive int of the number of days between 2 dates
+	//parameters are DateManager classes, this will insure the passed dates are valid, and reduces the amount of parameters needed
+	//while the parameters are named initialDate and finalDate, the dates can be entered in an arbitrary order and still produce the same answer
 	public int daysDifferent(DateManager initialDate,DateManager finalDate)
 	{
 		//Math.abs provides an absolute value, insuring you will never get a negative number of days
@@ -225,17 +170,11 @@ public class DateManager
 		
 		return 365*year + Math.floor(year/4) - Math.floor(year/100) + Math.floor(year/400) + day + Math.floor((153*month+8)/5); 
 	}
-	
-	/**Calculates the day of the week from a date
-	 * <p>
-	 * An algorithm based on Zeller's congruence
-	 * 
-	 * @param date the date to calculate for
-	 * @return this will return the day of the week that a given date is
-	 */
+	//An algorithm based on Zeller's congruence
+	//this will return the day of the week that a given date is
+	//the internal variable names are deliberately short, they are the same names used in zeller's congruence
 	public String dayName(DateManager date)
 	{
-		//the internal variable names are deliberately short, they are the same names used in zeller's congruence
 		int h;
 		int q = date.day; 
 		int m = date.month; // march = 3

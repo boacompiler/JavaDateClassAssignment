@@ -181,9 +181,9 @@ public class DateManager
 	{
 		return year + "" + separator + month + "" + separator + day;
 	}
-	/**calculates whether a year is a leap year or not
-	 * 
-	 * @param year the year to test
+	//
+	/**
+	 * @param year
 	 * @return this will return true if the year entered is a leap year, false otherwise
 	 */
 	public boolean leapYear(int year)

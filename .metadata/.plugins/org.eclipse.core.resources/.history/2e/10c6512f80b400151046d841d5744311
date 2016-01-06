@@ -341,7 +341,7 @@ public class Main extends JApplet
 	        	 
 	        	 DateManager initialDate;
 	        	 DateManager finalDate;
-	        	 //Validation
+	        	 
 	        	 try
 				 {
 	        		 if (!myDateManager.validDate(Integer.valueOf(textBoxInitialYear.getText()), Integer.valueOf(textBoxInitialMonth.getText()), Integer.valueOf(textBoxInitialDay.getText())))
